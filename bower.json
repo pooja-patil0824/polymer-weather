@@ -1,0 +1,28 @@
+{
+  "name": "weather-app",
+  "description": "get weather data",
+  "main": "index.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^1.0.0",
+    "google-map": "GoogleWebComponents/google-map#^1.1.3",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.3.1",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
+    "iron-image": "PolymerElements/iron-image#^1.2.5",
+    "iron-collapse": "PolymerElements/iron-collapse#^1.3.0",
+    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^1.10.2",
+    "paper-button": "PolymerElements/paper-button#^1.0.14",
+    "paper-input": "PolymerElements/paper-input#^1.1.23",
+    "paper-material": "PolymerElements/paper-material#^1.0.6",
+    "iron-form": "PolymerElements/iron-form#^1.1.4",
+    "paper-slider": "PolymerElements/paper-slider#^1.0.13",
+    "iron-media-query": "PolymerElements/iron-media-query#^1.0.8"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^6.0.0-prerelease.5",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}

@@ -1,0 +1,187 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="result-template.html">
+
+
+<dom-module id="weather-data">
+	<template>
+		<style include="iron-flex iron-flex-alignment"></style>
+		<style>
+			div#weatherForm{
+				position: relative;
+			}
+			paper-button.weather-data.primary-button{
+				color: #fff;
+				background: #337ab7;
+				border-color: #2e6da4;
+				font-weight: bold;
+				float: right;
+				margin-right:10px;
+			} 
+			.form-elements{
+				width: 100%;
+				margin-bottom: 10px;
+				padding-top: 10px;
+			}
+			.cityName{
+				width: 220px;
+				margin: 10px 15px;
+			}
+			.daysCount{
+				width: 50px;
+			}
+			label, input{
+				display: inline-block;
+			}
+			label{
+				margin: 0px 15px;
+				font-size: 1.1em;
+			}
+			input{
+			    padding: 2px 6px;
+			    height: 34px;
+			    font-size: 1em;
+			    color: #666;	
+			}
+			paper-slider.daysSlider{
+				min-width: 300px;		
+				cursor: pointer;		
+			}
+			span.count{
+				font-weight: bold;
+			}
+			@media only screen and (min-width: 600px){
+				.form-elements{
+					width: 45%;
+					float: left;
+				}
+				.cityName{
+					margin: 5px 0px 0px 15px;
+				}
+			}
+			@media only screen and (min-width: 800px){
+				.form-elements{
+					width: 40%;
+					float: left;
+				}
+				.cityName{
+					width: 150px;
+					margin: 5px 0 0 0;
+				}
+				paper-button.weather-data.primary-button{
+					float: none;    
+					position: absolute;
+    				right: 8%;
+    				top: 15px;
+				}
+			}
+			@media only screen and (min-width: 1000px){
+				.form-elements{
+					width: 30%;
+					float: left;
+				}
+				paper-button.weather-data.primary-button{
+					right: 30%;
+				}
+			}
+			@media only screen and (min-width: 1300px){
+				paper-button.weather-data.primary-button{
+					right: 35%;
+				}
+			}
+			@media only screen and (min-width: 1500px){
+				paper-button.weather-data.primary-button{
+					right: 40%;
+				}
+			}
+		</style>
+	<paper-material elevation="1">
+		<div id="weatherForm">
+			<div class="form-elements">
+				<label>Enter City: </label>
+			<input is="iron-input" class="cityName" bind-value="{{cityName}}" allowed-pattern="[a-zA-Z ]"></input>
+			</div>
+			<div class="form-elements">
+			<label>Number of Days: <span class="count">{{daysCount}}</span></label> <paper-slider id="daysCountId" pin snaps min="2" max="10" max-markers="10" step="2" value="4" class="daysSlider"></paper-slider>
+			</div>
+	    	<div class="clear"></div>
+			<paper-button class="primary-button" raised on-tap="getWeatherData">Submit</paper-button>
+	    	<div class="clear"></div>
+
+		</div>
+		<iron-ajax
+			id="ajaxElement"
+		    url="https://api.apixu.com/v1/forecast.json"
+		    handle-as="json"
+		    params="{{paramsObj}}"
+		    on-response="dataReceived"
+		    on-error="alertError"
+		    last-response="{{ajaxResponse}}"
+		    debounce-duration="300">
+	    </iron-ajax>
+		<result-template ajax-data="{{ajaxData}}"></result-template>
+	</paper-material> 
+	</template>
+	<script>
+		Polymer({
+			is:"weather-data",
+			properties:{
+				cityName:{
+					type:String,
+					notify:true,
+					value:'London'
+				},
+				daysCount:{
+					type:Number,
+					value:'4',
+					notify:true
+				},
+				paramsObj:{
+					type:Object,
+					notify:true
+				},
+				ajaxData:{
+					type:Object,
+					notify:true
+				}
+			},
+			ready:function(){
+				var daysCountId = document.querySelector('#daysCountId');
+				var _thisObj = this;
+				daysCountId.addEventListener('value-change', function(){
+					_thisObj.daysCount = this.value
+				})
+			},
+			dataReceived:function(data){
+				this.ajaxData = data.detail.response;
+				document.querySelector('.cityDetails').style.display = "Block";
+				console.log('this.ajaxData ', this.ajaxData );
+			},
+			alertError:function(err){
+				alert(err.detail.error);				
+			},
+			getWeatherData:function(){
+				var city = document.querySelector('input.cityName').bindValue;
+				var days = this.daysCount;				
+				var ajaxForm = document.querySelector('#ajaxElement');				
+				if(city == undefined || city==""){
+					alert('Enter Valid Data..!')
+				}
+				else{
+					this.paramsObj = {
+						"q" : city, 
+						"days" : days,
+						"key" : "0bd2fa780bc946d8b2f05134172801"
+					}
+					ajaxForm.generateRequest()
+				}
+			}
+		})
+	</script>
+</dom-module>

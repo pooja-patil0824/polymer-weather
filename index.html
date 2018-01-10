@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+  <title>Weather Application</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="weather.css">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="elements/app-header.html">
+    <link rel="import" href="elements/weather-data.html">
+    <script>
+    /*
+      window.Polymer = window.Polymer || {};
+      window.Polymer.dom = 'shadow';
+      */
+    </script>
+  </head>
+  <body>
+  <app-header></app-header>
+  <div class="main-container"> 
+  <h2 class="sub-header">Check Weather data for your location</h2>  
+  <weather-data></weather-data>
+  </div>
+  </body>
+</html>
+  

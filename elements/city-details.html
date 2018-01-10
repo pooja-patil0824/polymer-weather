@@ -1,0 +1,52 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="city-details">
+	<style>
+	ul.cityDetails{
+		list-style-type: none;    
+		margin: 15px 10px;
+	    padding: 5px 10px;
+	    background-color: #ff6200;
+	    color: #ffffff;
+	    border-radius: 5px;
+	    text-shadow: 1px 1px black;
+	    font-size: 1.05em;
+	}
+	ul.cityDetails li{
+	    display: inline-block;
+	    width: 98%;
+	    font-size: 1em;
+	    padding: 5px 0;
+	}
+	@media only screen and (min-width: 600px) {
+	   ul.cityDetails li{
+		    width:40%;
+		}
+
+		ul.cityDetails li:nth-child(even){
+			width: 58%;
+		}
+	}
+	@media only screen and (min-width: 1200px) {
+	   ul.cityDetails li{
+		    width:49%;
+		}
+		ul.cityDetails li:nth-child(even){
+			width: 49%;
+		}
+	}
+	</style>
+	<template>
+		<ul class="cityDetails">
+			<li>City : <em>{{ajaxData.location.name}}</em></li>
+			<li>Region : <em>{{ajaxData.location.region}}</em></li>
+			<li>Country : <em>{{ajaxData.location.country}}</em></li>
+			<li>Time zone : <em>{{ajaxData.location.tz_id}}</em></li>
+		</ul>
+	</template> 
+	<script>
+		Polymer({
+			is:"city-details"	
+		})
+	</script>
+</dom-module>
